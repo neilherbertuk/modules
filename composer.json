@@ -1,0 +1,12 @@
+{
+    "name": "neilherbertuk/modules",
+    "description": "This package provides a way to seperate areas of your website into their own module / folder.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Neil Herbert",
+            "email": "neilherbertuk@gmail.com"
+        }
+    ],
+    "require": {}
+}
