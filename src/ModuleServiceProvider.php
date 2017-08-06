@@ -1,12 +1,13 @@
 <?php
 
-namespace neilherbertuk\Modules;
+namespace neilherbertuk\modules;
 
+use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 /**
  * Class ModuleServiceProvider
- * @package neilherbertuk\Modules
+ * @package neilherbertuk\modules
  */
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -17,15 +18,27 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
 
+        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
+            // Publish configuration file
+            $this->publishes([
+                __DIR__ . '/../config/modules.php' => config_path('modules.php'),
+            ], "config");
+
+            // Create app/Modules directory
+            if (!file_exists(base_path() . "/app/Modules/")) {
+                mkdir(base_path() . "/app/Modules/", 0777, true);
+            }
+        }
+
         // Bind a closure to the IOC container which gets called from module's routes files and returns the module name
         $this->bindGetModuleNameClosureToIOC();
 
         // Get what modules to load from config or directory
-        if (config("module.autoload")) {
+        if (config("modules.autoload")) {
             $modules = $this->getDirectories(base_path() . "/app/Modules/");
 
         } else {
-            $modules = collect(config("module.enabled"));
+            $modules = collect(config("modules.enabled"));
         }
 
         // Load each module
@@ -59,7 +72,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function getDirectories($directory)
     {
-        $disabledModules = collect(config('module.disabled'));
+        $disabledModules = collect(config('modules.disabled'));
         $directories = collect(scandir($directory))->reject(function ($folder) use ($directory, $disabledModules) {
             return !is_dir($directory . DIRECTORY_SEPARATOR . $folder) or $folder == "." or $folder == ".." or $this->isModuleDisabled($folder, $disabledModules);
         });
