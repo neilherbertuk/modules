@@ -27,7 +27,7 @@ Example Structure
 This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
 
 ```bash
-$ composer require neilherbertuk/modules
+$ composer require neilherbertuk/laravel-modules
 ```
 
 Once installed, you need to register the service provider in your `config/app.php`

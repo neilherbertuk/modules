@@ -1,6 +1,6 @@
 {
-    "name": "neilherbertuk/modules",
-    "description": "This package provides a way to seperate areas of your website into their own module / folder.",
+    "name": "neilherbertuk/laravel-modules",
+    "description": "Modules Provider for Laravel 5",
     "type": "library",
     "authors": [
         {
