@@ -1,9 +1,21 @@
 Laravel Modules
 ===============
-v0.0.1
 
 A package to add modules to a laravel application. This package allows you to separate out code for parts of your application into their own dedicated "modules" or folders, allowing all code related to a specific section or function of your application to be stored in one place.
 
+Currently supports:
+ - Controllers
+ - Migrations
+ - Models
+ - Routes, web and api
+ - Service Providers
+ - Views
+
+Currently not supported:
+ - Database Seeding
+
+This package will soon have commands to assist in making each of these.
+ 
 ## Example
 An admin panel at domain.com/admin - all functionality related to the admin panel could be turned into a module and stored together in a single location.
 
@@ -27,7 +39,7 @@ Example Structure
 This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
 
 ```bash
-$ composer require neilherbertuk/laravel-modules
+$ composer require neilherbertuk/laravel-modules:dev-master
 ```
 
 Once installed, you need to register the service provider in your `config/app.php`
