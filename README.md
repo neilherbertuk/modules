@@ -24,13 +24,37 @@ Example Structure
 
 ## Installation
 
-This version has been tested with Laravel 5.4 only.
+This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
 
 ```bash
 $ composer require neilherbertuk/modules
 ```
 
-Once installed, you need to register the `neilherbertuk\modules\ModulesServiceProvider` service provider in your `config/app.php`
+Once installed, you need to register the service provider in your `config/app.php`
+
+```php
+        neilherbertuk\modules\ModulesServiceProvider::class,
+```
+
+### Configuration
+
+Publish the package's config file. 
+
+```bash
+$ php artisan vendor:publish --provider="neilherbertuk\modules\ModuleServiceProvider" --tag=config
+```
+
+This will create a `config/modules.php` file in your app that you can modify to set your configuration.
+
+The package can be configured to work in several ways. By default the package will autoload modules under the `app\Modules` folder.
+
+In my opinion (correct me if I am wrong) auto-loading is great in development, but not recommended in production due to the expensive nature of finding each available module.
+
+#### Enable Autoload
+```dotenv
+MODULES_AUTOLOAD=true
+```
+
 
 ### Usage
 
