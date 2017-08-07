@@ -33,6 +33,9 @@ class ModuleServiceProvider extends ServiceProvider
         // Bind a closure to the IOC container which gets called from module's routes files and returns the module name
         $this->bindGetModuleNameClosureToIOC();
 
+        // Bind a closure to the IOC container which gets called from module's routes files and returns the module controller path
+        $this->bindGetControllerPath();
+
         // Get what modules to load from config or directory
         if (config("modules.autoload")) {
             $modules = $this->getDirectories(base_path() . "/app/Modules/");
@@ -163,8 +166,22 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function bindGetModuleNameClosureToIOC()
     {
-        $this->app->bind('Module::getName', function ($app, $parameters) {
+        $this->app->bind('Module::getNameLowerCase', function ($app, $parameters) {
             return strtolower(substr($parameters['path'], strrpos($parameters['path'], "/") + 1));
+        });
+
+        $this->app->bind('Module::getName', function ($app, $parameters) {
+            return substr($parameters['path'], strrpos($parameters['path'], "/") + 1);
+        });
+    }
+
+    /**
+     *
+     */
+    protected function bindGetControllerPath()
+    {
+        $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
+            return '\App\Modules\\'. substr($parameters['path'], strrpos($parameters['path'], "/") + 1) .'\Controllers\\';
         });
     }
 }
