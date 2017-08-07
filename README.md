@@ -39,13 +39,13 @@ Example Structure
 This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
 
 ```bash
-$ composer require neilherbertuk/laravel-modules:dev-master
+$ composer require neilherbertuk/laravel-modules:dev-mastere
 ```
 
 Once installed, you need to register the service provider in your `config/app.php`
 
 ```php
-        neilherbertuk\modules\ModulesServiceProvider::class,
+        neilherbertuk\modules\ModuleServiceProvider::class,
 ```
 
 ### Configuration

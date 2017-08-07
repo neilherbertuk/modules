@@ -1,12 +1,24 @@
 {
-    "name": "neilherbertuk/laravel-modules",
-    "description": "Modules Provider for Laravel 5",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Neil Herbert",
-            "email": "neilherbertuk@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "neilherbertuk/laravel-modules",
+  "description": "Modules Provider for Laravel 5",
+  "keywords": ["laravel", "framework", "laravel modules", "laravel 5", "neilherbertuk", "Neil Herbert"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Neil Herbert",
+          "email": "neil@ea3.co.uk"
+      }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "neilherbertuk\\modules\\": "src/"
+    }
+  },
+  "laravel": {
+    "providers": [
+      "neilherbertuk\\modules\\ModuleServiceProvider"
+    ]
+  }
 }
