@@ -1,7 +1,7 @@
 Laravel Modules
 ===============
 
-A package to add modules to a laravel application. This package allows you to separate out code for parts of your application into their own dedicated "modules" or folders, allowing all code related to a specific section or function of your application to be stored in one place.
+A package to add modules to a [Laravel](https://laravel.com/) 5 application. This package allows you to separate out code for parts of your application into their own dedicated "modules" or folders, allowing all code related to a specific section or function of your application to be stored in one place.
 
 Currently supports:
  - Controllers
@@ -39,7 +39,7 @@ Example Structure
 This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
 
 ```bash
-$ composer require neilherbertuk/laravel-modules:dev-mastere
+$ composer require neilherbertuk/laravel-modules:dev-master
 ```
 
 Once installed, you need to register the service provider in your `config/app.php`
@@ -82,7 +82,8 @@ To be written.
  - [ ] Test support for other versions of Laravel 5
  - [ ] Create Unit Tests
 
-## Bugs and Security Issues
+## Bugs
 Please report any bugs by opening an issue on [github](https://github.com/neilherbertuk/modules/issues).
 
-Please email any security issues directly to neil@ea3.co.uk
+## Security Issues
+Please email any security issues directly to neil@ea3.co.uk.
