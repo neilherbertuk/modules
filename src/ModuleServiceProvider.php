@@ -181,7 +181,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function bindGetControllerPath()
     {
         $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
-            return '\App\Modules\\'. substr($parameters['path'], strrpos($parameters['path'], "/") + 1) .'\Controllers\\';
+            return '\App\Modules\\'. substr($parameters['path'], strrpos($parameters['path'], "/") + 1) .'\Controllers';
         });
     }
 }
