@@ -10,7 +10,9 @@
           "email": "neil@ea3.co.uk"
       }
   ],
-  "require": {},
+  "require": {
+    "laravel/framework": "5.4.*"
+  },
   "autoload": {
     "psr-4": {
       "neilherbertuk\\modules\\": "src/"

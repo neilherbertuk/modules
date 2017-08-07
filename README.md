@@ -62,16 +62,27 @@ The package can be configured to work in several ways. By default the package wi
 
 In my opinion (correct me if I am wrong) auto-loading is great in development, but not recommended in production due to the expensive nature of finding each available module.
 
-#### Enable Autoload
+**Enable Autoload**
 ```dotenv
 MODULES_AUTOLOAD=true
 ```
-
+**Disable Autoload**
+```dotenv
+MODULES_AUTOLOAD=true
+```
 
 ### Usage
 
 To be written.
 
+### TODO
+ - [ ] Complete Documentation - Usage Section
+ - [ ] Create commands to easily make modules and various parts such as controllers and views within a module.
+ - [ ] Create example project
+ - [ ] Test support for other versions of Laravel 5
+ - [ ] Create Unit Tests
+
 ## Bugs and Security Issues
-Please report any bugs by opening an issue on github.
+Please report any bugs by opening an issue on [github](https://github.com/neilherbertuk/modules/issues).
+
 Please email any security issues directly to neil@ea3.co.uk
