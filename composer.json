@@ -18,9 +18,11 @@
       "neilherbertuk\\modules\\": "src/"
     }
   },
-  "laravel": {
-    "providers": [
-      "neilherbertuk\\modules\\ModuleServiceProvider"
-    ]
+  "extra": {
+    "laravel": {
+      "providers": [
+        "neilherbertuk\\modules\\ModuleServiceProvider"
+      ]
+    }
   }
 }
