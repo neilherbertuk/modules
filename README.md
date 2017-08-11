@@ -36,7 +36,7 @@ Example Structure
 
 ## Installation
 
-This version has been tested with Laravel 5.4 only, however other versions will be tested in the future.
+This version has been tested with Laravel 5.4 and 5.5, other versions will be tested in the future.
 
 ```bash
 $ composer require neilherbertuk/laravel-modules:dev-master
