@@ -17,21 +17,21 @@ Currently not supported:
 This package will soon have commands to assist in making each of these.
  
 ## Example
-An admin panel at domain.com/admin - all functionality related to the admin panel could be turned into a module and stored together in a single location.
+An admin panel at *domain.com/admin* - all functionality related to the admin panel could be turned into a module and stored together in a single location.
 
 Example Structure
 
-    modules/admin
-     - modules/admin/controllers
-     - - modules/admin/controllers/AdminController.php
-     - modules/admin/database
-     - - modules/admin/database/migrations
-     - - - modules/admin/database/migrations/Create_A_Table_Migrtion.php
-     - modules/admin/models
-     - - modules/admin/models/statistics.php
-     - modules/admin/views
-     - - modules/admin/views/dashboard.blade.php
-     - modules/admin/web.php
+    modules/Admin
+     - modules/Admin/controllers
+     - - modules/Admin/controllers/AdminController.php
+     - modules/Admin/database
+     - - modules/Admin/database/migrations
+     - - - modules/Admin/database/migrations/Create_A_Table_Migrtion.php
+     - modules/Admin/models
+     - - modules/Admin/models/statistics.php
+     - modules/Admin/views
+     - - modules/Admin/views/dashboard.blade.php
+     - modules/Admin/web.php
     
 
 ## Installation
@@ -72,10 +72,16 @@ The package can be configured to work in several ways. By default the package wi
 In my opinion (correct me if I am wrong) auto-loading is great in development, but not recommended in production due to the expensive nature of finding each available module.
 
 **Enable Autoload**
+
+This is the default behaviour, but can be added to your `.env` file
+
 ```dotenv
 MODULES_AUTOLOAD=true
 ```
 **Disable Autoload**
+
+Add the following to your `.env` file
+
 ```dotenv
 MODULES_AUTOLOAD=false
 ```
@@ -126,7 +132,7 @@ This will create a new folder structure as shown in the example above within you
 The create command will also create a web routes file (`web.php`).
 
 The module name will automatically be converted to lower case and used as a prefix for any routes file created.
-If you create a new module named "Dashboard", anything within the module will be available at domain/dashboard/
+If you create a new module named "Dashboard", anything within the module will be available at *domain.com/dashboard/*
  
 All files related to the module must belong to the same namespace. This is done automatically for you if you use the provided console commands.
 

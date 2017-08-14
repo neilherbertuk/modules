@@ -214,7 +214,7 @@ class ModuleServiceProvider extends ServiceProvider
             $serviceProviderStartPos = strlen(base_path('app/Modules/' . $module . '/Providers/'));
             $files = glob(base_path('app/Modules/' . $module . '/Providers/*.php'));
             foreach ($files as $file) {
-                $this->app->register("App\Modules\\$module\Providers\\" . substr($file, $serviceProviderStartPos, -4));
+                $this->app->register($this->app->getNamespace() . "Modules\\$module\Providers\\" . substr($file, $serviceProviderStartPos, -4));
             }
         }
     }
@@ -250,7 +250,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function bindGetControllerPathClosureToIOC()
     {
         $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
-            return '\App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
+            return $this->app->getNamespace() . 'App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
         });
     }
 }
