@@ -106,11 +106,41 @@ When using Autoloading, it is possible to disable certain modules. Within your `
 
 To be written.
 
+The Laravel-Modules package comes with a handy console command to help build new modules.
+It's usage can be seen by running the following command:
+
+```bash
+    $ php artisan make:module
+```
+
+#### Creating a New Module
+
+To create a new module, run the following command from the root of your Laravel project
+
+```bash
+    $ php artisan make:module ModuleName --create
+```
+
+This will create a new folder structure as shown in the example above within your `app/Module` folder.
+
+The create command will also create a web routes file (`web.php`).
+
+The module name will automatically be converted to lower case and used as a prefix for any routes file created.
+If you create a new module named "Dashboard", anything within the module will be available at domain/dashboard/
+ 
+All files related to the module must belong to the same namespace. This is done automatically for you if you use the provided console commands.
+
+```
+namespace app\Modules\ModuleName\Controllers;
+namespace app\Modules\ModuleName\Models;
+namespace app\Modules\ModuleName\Migrations;
+```
+
 ### TODO
- - [ ] Complete Documentation - Usage Section
- - [ ] Create commands to easily make modules and various parts such as controllers and views within a module.
- - [ ] Create example project
- - [ ] Test support for other versions of Laravel 5
+ - [ ] Working On - Complete Documentation - Usage Section
+ - [ ] Working On - Create commands to easily make modules and various parts such as controllers and views within a module.
+ - [ ] Working On - Create example project
+ - [ ] Working On - Test support for other versions of Laravel 5
  - [ ] Create Unit Tests
 
 ## Bugs
