@@ -42,10 +42,19 @@ This version has been tested with Laravel 5.4 and 5.5, other versions will be te
 $ composer require neilherbertuk/laravel-modules:dev-master
 ```
 
+### Laravel 5.4
 Once installed, you need to register the service provider in your `config/app.php`
 
 ```php
         neilherbertuk\modules\ModuleServiceProvider::class,
+```
+
+### Laravel 5.5
+Laravel Package Discovery should autoload the ModuleServiceProvider, if this does not happen run the following commands from the root of your laravel project:
+
+```bash
+$ composer dump-autoload
+$ php aritsan package:discover
 ```
 
 ### Configuration
@@ -68,7 +77,29 @@ MODULES_AUTOLOAD=true
 ```
 **Disable Autoload**
 ```dotenv
-MODULES_AUTOLOAD=true
+MODULES_AUTOLOAD=false
+```
+
+**Manually Loading Modules**
+
+Manual loading of modules will occur when Autoload is disabled. 
+Within your `config/modules.php` file you will find a blank `enabled` array. Simply add the name of each module you wish to manually load as a new entry. Each name is the name of the folder your module sits in.
+
+```php
+'enabled' => [
+                'Admin',
+                'Forum'
+            ],
+```
+
+**Disabling Modules**
+
+When using Autoloading, it is possible to disable certain modules. Within your `config/modules.php` file is a blank `disabled` array. Any modules listed here will not be loaded.
+
+```php
+'disabled' => [
+                'Admin'
+            ],
 ```
 
 ### Usage
