@@ -14,8 +14,7 @@ class MakeModuleCommand extends Command
     protected $signature = 'make:module
                     {module? : Name of module}
                     {filename? : Name of file to create}
-                    {--create : Creates scaffold for new module}'.
-//                    {--view : Creates a view}
+                    {--create : Creates scaffold for new module}' .
 //                    {--controller : Creates a controller}
 //                    {--migration : Creates a migration}
 //                    {--model : Creates a model}
@@ -50,35 +49,28 @@ class MakeModuleCommand extends Command
         $filename = $this->argument('filename');
 
         // Has a Module Name been provided?
-        if($this->isModuleNameGiven($module)){
+        if ($this->isModuleNameGiven($module)) {
 
-            $this->info('Module Name: '. $module);
-            if($this->option('create')){
-                $this->info('Creating a new Module');
+            $this->info('Module Name: ' . $module);
 
-                // Create all module's folders
-                $this->info('Creating folder structure');
-                $this->createModuleFolders($module);
-
-                // Create web.php routes file
-                $this->createWebRoutesFile($module);
+            // Create Module
+            if ($this->option('create')) {
+                $this->createModule($module);
                 return;
             }
 
-            // Create Web Routes File
-            if($this->option('webroute')){
-                $this->info('Creating a web route file for Module');
+            // Create Individual Module Files
 
+            // Create Web Routes File
+            if ($this->option('webroute')) {
                 // Create web.php routes file
                 $this->createWebRoutesFile($module);
                 return;
             }
 
             // Create API Routes File
-            if($this->option('apiroute')){
-                $this->info('Creating an api route file for Module');
-
-                // Create web.php routes file
+            if ($this->option('apiroute')) {
+                // Create api.php routes file
                 $this->createApiRoutesFile($module);
                 return;
             }
@@ -86,11 +78,6 @@ class MakeModuleCommand extends Command
             // Has a File Name been given?
 //            if($this->isFileNameGiven($filename)){
 //
-//                if($this->option('view')) {
-//                    $this->info('Creating a new View');
-//                    $this->createViewsFolder($module);
-//                    return;
-//                }
 //                if($this->option('controller')) {
 //                    $this->info('Creating a new Controller');
 //                    $this->createControllersFolder($module);
@@ -110,6 +97,7 @@ class MakeModuleCommand extends Command
 
         }
 
+        // Show Usage
         return $this->showUsage();
     }
 
@@ -119,7 +107,6 @@ class MakeModuleCommand extends Command
     protected function showUsage()
     {
         $this->info($this->getDescription());
-        $this->error('These commands currently do not work.');
         $this->warn('Usage: ');
         $this->line('   make:module ModuleName [--] [FileName]');
         $this->line('');
@@ -132,7 +119,6 @@ class MakeModuleCommand extends Command
 //        $this->info('   --controller [FileName] - Creates a controller for the module given');
 //        $this->info('   --migration [FileName]  - Creates a migration for the module given');
 //        $this->info('   --model [FileName]      - Creates a model for the module given');
-//        $this->info('   --view [FileName]       - Creates a view for the module given');
         $this->info('   --webroute              - Creates a web routes file for the module given');
         $this->info('   --apiroute              - Creates a web routes file for the module given');
     }
@@ -153,6 +139,38 @@ class MakeModuleCommand extends Command
     protected function isFileNameGiven($filename)
     {
         return !empty($filename);
+    }
+
+    /**
+     * @param $module
+     */
+    protected function createModule($module)
+    {
+        $this->info('Creating a new Module');
+
+        if (is_dir(base_path('app/Modules/' . $module))) {
+            $this->error($module . " already exists. If you really want to create this module, please delete the following folder: " . base_path('app/Modules/' . $module));
+            return;
+        }
+
+        // Create all module's folders
+        $this->info('Creating folder structure');
+        $this->createModuleFolders($module);
+
+
+        // Create routes file
+
+        // API Routes File
+        if ($this->option('apiroute')) {
+            $this->createApiRoutesFile($module);
+        }
+
+        // Web Routes File
+        if ($this->option('webroute') || !$this->option('apiroute')) {
+            $this->createWebRoutesFile($module);
+        }
+
+        $this->info('Done');
     }
 
     /**
@@ -206,20 +224,27 @@ class MakeModuleCommand extends Command
     protected function createFolderInModule($module, $folder)
     {
         // Does Directory Exist?
-        if (!is_dir(base_path() . "/app/Modules/". $module . "/" . $folder)) {
+        if (!is_dir(base_path() . "/app/Modules/" . $module . "/" . $folder)) {
             // Create directory
-            return mkdir(base_path() . "/app/Modules/". $module . "/" . $folder, 0755, true);
+            return mkdir(base_path() . "/app/Modules/" . $module . "/" . $folder, 0755, true);
         }
         return false;
     }
 
-    protected function compileRoutesStub($module, $type)
+    /**
+     * @param $module
+     */
+    protected function createWebRoutesFile($module)
     {
-        return str_replace(
-            ['{{modulename}}', '{{rotueType}}'],
-            [$module, $type],
-            file_get_contents(__DIR__.'/../Stubs/route.stub')
-        );
+        $this->createRoutesFile($module, "web");
+    }
+
+    /**
+     * @param $module
+     */
+    protected function createApiRoutesFile($module)
+    {
+        $this->createRoutesFile($module, "api");
     }
 
     /**
@@ -227,10 +252,10 @@ class MakeModuleCommand extends Command
      */
     protected function createRoutesFile($module, $type)
     {
-        if (!file_exists(base_path() . "/app/Modules/" . $module . "/". $type .".php")) {
-            $this->info('Creating '. $type .' routes file');
+        if (!file_exists(base_path() . "/app/Modules/" . $module . "/" . $type . ".php")) {
+            $this->info('Creating ' . $type . ' routes file');
             file_put_contents(
-                base_path() . "/app/Modules/" . $module . "/". $type .".php",
+                base_path() . "/app/Modules/" . $module . "/" . $type . ".php",
                 $this->compileRoutesStub($module, $type)
             );
         }
@@ -238,15 +263,15 @@ class MakeModuleCommand extends Command
 
     /**
      * @param $module
+     * @param $type
+     * @return mixed
      */
-    protected function createWebRoutesFile($module){
-        $this->createRoutesFile($module, "web");
-    }
-
-    /**
-     * @param $module
-     */
-    protected function createApiRoutesFile($module){
-        $this->createRoutesFile($module, "api");
+    protected function compileRoutesStub($module, $type)
+    {
+        return str_replace(
+            ['{{moduleName}}', '{{routeType}}'],
+            [$module, $type],
+            file_get_contents(__DIR__ . '/../Stubs/route.stub')
+        );
     }
 }
