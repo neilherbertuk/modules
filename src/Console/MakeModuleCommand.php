@@ -264,7 +264,7 @@ class MakeModuleCommand extends Command
 
     /**
      * @param $module
-     * @param $type
+     * @param string $type
      * @return string
      */
     protected function compileRoutesStub($module, $type)

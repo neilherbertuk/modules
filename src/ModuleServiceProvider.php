@@ -122,7 +122,7 @@ class ModuleServiceProvider extends ServiceProvider
     /**
      * @param $moduleToLoad
      * @param \Illuminate\Support\Collection $disabledModulesList
-     * @return mixed
+     * @return boolean
      */
     protected function isModuleDisabled($moduleToLoad, $disabledModulesList)
     {
