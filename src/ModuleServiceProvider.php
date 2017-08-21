@@ -102,14 +102,14 @@ class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param $directory
+     * @param string $directory
      * @return \Illuminate\Support\Collection
      */
     protected function getDirectories($directory)
     {
         $disabledModules = collect(config('modules.disabled'));
         $directories = collect(scandir($directory))
-            ->reject(function ($folder) use ($directory, $disabledModules) {
+            ->reject(function($folder) use ($directory, $disabledModules) {
                 return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
                     || $folder == "."
                     || $folder == ".."
@@ -121,7 +121,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     /**
      * @param $moduleToLoad
-     * @param $disabledModulesList
+     * @param \Illuminate\Support\Collection $disabledModulesList
      * @return mixed
      */
     protected function isModuleDisabled($moduleToLoad, $disabledModulesList)
@@ -137,7 +137,7 @@ class ModuleServiceProvider extends ServiceProvider
         $modules = $this->getEnabledModules();
 
         // Load each module
-        $modules->each(function ($module) {
+        $modules->each(function($module) {
 
             $this->loadModuleProviders($module);
 
@@ -213,7 +213,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleProviders($module)
     {
-        if ($this->doesFolderExist($module,'Providers')) {
+        if ($this->doesFolderExist($module, 'Providers')) {
             $serviceProviderStartPos = strlen(base_path('app/Modules/' . $module . '/Providers/'));
             $files = glob(base_path('app/Modules/' . $module . '/Providers/*.php'));
             foreach ($files as $file) {
@@ -238,11 +238,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function bindGetModuleNameClosureToIOC()
     {
-        $this->app->bind('Module::getNameLowerCase', function ($app, $parameters) {
+        $this->app->bind('Module::getNameLowerCase', function($app, $parameters) {
             return strtolower(substr($parameters['path'], strrpos($parameters['path'], "/") + 1));
         });
 
-        $this->app->bind('Module::getName', function ($app, $parameters) {
+        $this->app->bind('Module::getName', function($app, $parameters) {
             return substr($parameters['path'], strrpos($parameters['path'], "/") + 1);
         });
     }
@@ -252,7 +252,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function bindGetControllerPathClosureToIOC()
     {
-        $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
+        $this->app->bind('Module::getControllerPath', function($app, $parameters) {
             return $this->app->getNamespace() . 'App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
         });
     }
@@ -264,7 +264,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function doesFileExist($module, $file)
     {
-        return file_exists(base_path('app/Modules/' . $module . '/'. $file));
+        return file_exists(base_path('app/Modules/' . $module . '/' . $file));
     }
 
     /**
@@ -274,6 +274,6 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function doesFolderExist($module, $folder)
     {
-        return is_dir(base_path('app/Modules/'. $module . '/'. $folder));
+        return is_dir(base_path('app/Modules/' . $module . '/' . $folder));
     }
 }

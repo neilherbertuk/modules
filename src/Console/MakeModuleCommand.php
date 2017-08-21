@@ -218,7 +218,7 @@ class MakeModuleCommand extends Command
 
     /**
      * @param $module
-     * @param $folder
+     * @param string $folder
      * @return bool
      */
     protected function createFolderInModule($module, $folder)
@@ -249,6 +249,7 @@ class MakeModuleCommand extends Command
 
     /**
      * @param $module
+     * @param string $type
      */
     protected function createRoutesFile($module, $type)
     {
@@ -264,7 +265,7 @@ class MakeModuleCommand extends Command
     /**
      * @param $module
      * @param $type
-     * @return mixed
+     * @return string
      */
     protected function compileRoutesStub($module, $type)
     {
