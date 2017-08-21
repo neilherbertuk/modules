@@ -109,12 +109,12 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $disabledModules = collect(config('modules.disabled'));
         $directories = collect(scandir($directory))
-                        ->reject(function ($folder) use ($directory, $disabledModules) {
-                            return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
-                                || $folder == "."
-                                || $folder == ".."
-                                || $this->isModuleDisabled($folder, $disabledModules);
-                        });
+            ->reject(function ($folder) use ($directory, $disabledModules) {
+                return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
+                    || $folder == "."
+                    || $folder == ".."
+                    || $this->isModuleDisabled($folder, $disabledModules);
+            });
 
         return $directories;
     }
@@ -170,7 +170,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleWebRoutes($module)
     {
-        if (file_exists(base_path('app/Modules/' . $module . '/web.php'))) {
+        if ($this->doesFileExist($module, "web.php")) {
             $this->loadRoutesFrom(base_path('app/Modules/' . $module . '/web.php'));
         }
     }
@@ -180,7 +180,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleAPIRoutes($module)
     {
-        if (file_exists(base_path('app/Modules/' . $module . '/api.php'))) {
+        if ($this->doesFileExist($module, 'api.php')) {
             $this->loadRoutesFrom(base_path('app/Modules/' . $module . '/api.php'));
         }
     }
@@ -190,7 +190,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleViews($module)
     {
-        if (is_dir(base_path('app/Modules/' . $module . '/Views'))) {
+        if ($this->doesFolderExist($module)) {
             $this->loadViewsFrom(base_path('app/Modules/' . $module . '/Views'), strtolower($module));
         }
     }
@@ -200,7 +200,10 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleMigrations($module)
     {
-        if (is_dir(base_path('app/Modules/' . $module . '/Database/Migrations'))) {
+        if ($this->doesFolderExist($module, 'Database/Migrations')) {
+            /**
+             * @ignore
+             */
             $this->loadMigrationsFrom(base_path('app/Modules/' . $module . '/Database/Migrations'), $module);
         }
     }
@@ -210,7 +213,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleProviders($module)
     {
-        if (is_dir(base_path('app/Modules/' . $module . '/Providers'))) {
+        if ($this->doesFolderExist($module,'Providers')) {
             $serviceProviderStartPos = strlen(base_path('app/Modules/' . $module . '/Providers/'));
             $files = glob(base_path('app/Modules/' . $module . '/Providers/*.php'));
             foreach ($files as $file) {
@@ -252,5 +255,25 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
             return $this->app->getNamespace() . 'App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
         });
+    }
+
+    /**
+     * @param string $module
+     * @param string $file
+     * @return bool
+     */
+    protected function doesFileExist($module, $file)
+    {
+        return file_exists(base_path('app/Modules/' . $module . '/'. $file));
+    }
+
+    /**
+     * @param string $module
+     * @param string $folder
+     * @return bool
+     */
+    protected function doesFolderExist($module, $folder)
+    {
+        return is_dir(base_path('app/Modules/'. $module . '/'. $folder));
     }
 }
