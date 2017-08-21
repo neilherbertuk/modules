@@ -190,7 +190,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleViews($module)
     {
-        if ($this->doesFolderExist($module)) {
+        if ($this->doesFolderExist($module, 'Views')) {
             $this->loadViewsFrom(base_path('app/Modules/' . $module . '/Views'), strtolower($module));
         }
     }
