@@ -11,7 +11,8 @@
       }
   ],
   "require": {
-    "laravel/framework": "5.4.*|5.5.*"
+    "laravel/framework": "5.4.*|5.5.*",
+    "illuminate/routing" : "5.4.*|5.5.*"
   },
   "autoload": {
     "psr-4": {
