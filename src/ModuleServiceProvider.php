@@ -201,6 +201,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function loadModuleMigrations($module)
     {
         if (is_dir(base_path('app/Modules/' . $module . '/Database/Migrations'))) {
+            /** @scrutinizer ignore-call */
             $this->loadMigrationsFrom(base_path('app/Modules/' . $module . '/Database/Migrations'), $module);
         }
     }
