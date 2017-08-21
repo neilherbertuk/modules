@@ -111,9 +111,9 @@ class ModuleServiceProvider extends ServiceProvider
         $directories = collect(scandir($directory))
                         ->reject(function ($folder) use ($directory, $disabledModules) {
                             return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
-                                or $folder == "."
-                                or $folder == ".."
-                                or $this->isModuleDisabled($folder, $disabledModules);
+                                || $folder == "."
+                                || $folder == ".."
+                                || $this->isModuleDisabled($folder, $disabledModules);
                         });
 
         return $directories;
