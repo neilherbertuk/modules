@@ -40,7 +40,7 @@ class ModuleServiceProvider extends ServiceProvider
 
             // Publish configuration file
             $this->publishes([
-                __DIR__ . '/../Config/modules.php' => config_path('modules.php'),
+                __DIR__ . '/Config/modules.php' => config_path('modules.php'),
             ], "config");
 
             // Create app/Modules directory
@@ -109,12 +109,12 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $disabledModules = collect(config('modules.disabled'));
         $directories = collect(scandir($directory))
-                        ->reject(function ($folder) use ($directory, $disabledModules) {
-                            return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
-                                || $folder == "."
-                                || $folder == ".."
-                                || $this->isModuleDisabled($folder, $disabledModules);
-                        });
+            ->reject(function($folder) use ($directory, $disabledModules) {
+                return !is_dir($directory . DIRECTORY_SEPARATOR . $folder)
+                    || $folder == "."
+                    || $folder == ".."
+                    || $this->isModuleDisabled($folder, $disabledModules);
+            });
 
         return $directories;
     }
@@ -137,7 +137,7 @@ class ModuleServiceProvider extends ServiceProvider
         $modules = $this->getEnabledModules();
 
         // Load each module
-        $modules->each(function ($module) {
+        $modules->each(function($module) {
 
             $this->loadModuleProviders($module);
 
@@ -236,11 +236,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function bindGetModuleNameClosureToIOC()
     {
-        $this->app->bind('Module::getNameLowerCase', function ($app, $parameters) {
+        $this->app->bind('Module::getNameLowerCase', function($app, $parameters) {
             return strtolower(substr($parameters['path'], strrpos($parameters['path'], "/") + 1));
         });
 
-        $this->app->bind('Module::getName', function ($app, $parameters) {
+        $this->app->bind('Module::getName', function($app, $parameters) {
             return substr($parameters['path'], strrpos($parameters['path'], "/") + 1);
         });
     }
@@ -250,7 +250,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function bindGetControllerPathClosureToIOC()
     {
-        $this->app->bind('Module::getControllerPath', function ($app, $parameters) {
+        $this->app->bind('Module::getControllerPath', function($app, $parameters) {
             return $this->app->getNamespace() . 'App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
         });
     }
