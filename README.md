@@ -56,12 +56,12 @@ If you are using Laravel 5.5 or up, Automatic Package Discovery should autoload 
 
 ```bash
 $ composer dump-autoload
-$ php aritsan package:discover
+$ php artisan package:discover
 ```
 
 ### Configuration
 
-Publish the package's config file.
+If you would like to make changes to the default configuration, publish the package's config file.
 
 ```bash
 $ php artisan vendor:publish --provider="neilherbertuk\modules\ModuleServiceProvider" --tag=config

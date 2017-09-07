@@ -17,6 +17,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge Configuration
+        $this->mergeConfigFrom(
+            __DIR__ . '/Config/modules.php',
+            'modules'
+        );
     }
 
     /**
