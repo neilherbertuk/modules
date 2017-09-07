@@ -14,7 +14,7 @@
 $moduleName = App::makeWith('Module::getNameLowerCase', ['path' => __DIR__]);
 $moduleControllerPath = App::makeWith('Module::getControllerPath', ['path' => __DIR__]);
 
-Route::group(['prefix' => $moduleName, 'middleware' => '{{routeType}}'], function () use ($moduleName, $moduleControllerPath) {
+Route::group(['prefix' => $moduleName, 'middleware' => '{{routeType}}', 'namespace' => $moduleControllerPath], function () use ($moduleName) {
     Route::get('/', function(){
         return "{{moduleName}} default route";
     });

@@ -251,7 +251,7 @@ class ModuleServiceProvider extends ServiceProvider
     protected function bindGetControllerPathClosureToIOC()
     {
         $this->app->bind('Module::getControllerPath', function($app, $parameters) {
-            return $this->app->getNamespace() . 'App\Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
+            return $this->app->getNamespace() . 'Modules\\' . substr($parameters['path'], strrpos($parameters['path'], "/") + 1) . '\Controllers';
         });
     }
 }
