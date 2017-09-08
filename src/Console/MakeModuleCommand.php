@@ -88,14 +88,15 @@ class MakeModuleCommand extends Command
 
                 // Create Controller
                 if($this->option('controller')) {
-                    return $this->createController($module, $filename);
+                    $this->createController($module, $filename);
+                    return;
                 }
             }
 
         }
 
         // Show Usage
-        return $this->showUsage();
+        $this->showUsage();
     }
 
     /**

@@ -172,7 +172,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleWebRoutes($module)
     {
-        if (file_exists(base_path('app/Modules/' . $module . '/web.php'))) {
+        if (file_exists(base_path() .'/app/Modules/' . $module . '/web.php')) {
             $this->loadRoutesFrom(base_path('app/Modules/' . $module . '/web.php'));
         }
     }
@@ -182,7 +182,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadModuleAPIRoutes($module)
     {
-        if (file_exists(base_path('app/Modules/' . $module . '/api.php'))) {
+        if (file_exists(base_path() .'/app/Modules/' . $module . '/api.php')) {
             $this->loadRoutesFrom(base_path('app/Modules/' . $module . '/api.php'));
         }
     }
