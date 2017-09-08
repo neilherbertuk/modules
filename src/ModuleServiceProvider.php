@@ -98,12 +98,9 @@ class ModuleServiceProvider extends ServiceProvider
     {
         // Get what modules to load from config or directory
         if (config("modules.autoload")) {
-            $modules = $this->getDirectories(base_path() . "/app/Modules/");
-
-        } else {
-            $modules = collect(config("modules.enabled"));
+            return $this->getDirectories(base_path() . "/app/Modules/");
         }
-        return $modules;
+        return collect(config("modules.enabled"));
     }
 
     /**

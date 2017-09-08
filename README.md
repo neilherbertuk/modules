@@ -5,6 +5,10 @@ Laravel Modules
 
 A package to add modules to a [Laravel](https://laravel.com/) 5 application. This package allows you to separate out code for parts of your application into their own dedicated "modules" or folders, allowing all code related to a specific section or function of your application to be stored in one place.
 
+Compatible with:
+ - Laravel 5.4
+ - Laravel 5.5
+ 
 Currently supports:
  - Controllers
  - Migrations
