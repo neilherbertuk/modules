@@ -11,15 +11,15 @@ trait MakeModule
      */
     protected function createModule($module)
     {
-        $this->info('Creating a new Module');
+        $this->info("Creating a new Module");
 
         if (is_dir(base_path('app/Modules/' . $module))) {
-            $this->error($module . " already exists. If you really want to create this module, please delete the following folder: " . base_path('app/Modules/' . $module));
+            $this->error("$module already exists. If you really want to create this module, please delete the following folder: " . base_path('app/Modules/' . $module));
             return;
         }
 
         // Create all module's folders
-        $this->info('Creating folder structure');
+        $this->info("Creating folder structure");
         $this->createModuleFolders($module);
 
 

@@ -27,7 +27,7 @@ trait MakeRoutes{
     protected function createRoutesFile($module, $type)
     {
         if (!file_exists(base_path() . "/app/Modules/" . $module . "/" . $type . ".php")) {
-            $this->info('Creating ' . $type . ' routes file');
+            $this->info("Creating $type routes file");
             file_put_contents(
                 base_path() . "/app/Modules/" . $module . "/" . $type . ".php",
                 $this->compileRoutesStub($module, $type)

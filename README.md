@@ -155,6 +155,16 @@ If you would like to add both a web and api routes file, add both `--webroute` a
 The module name will automatically be converted to lower case and used as a prefix for any routes file created.
 If you create a new module named "Dashboard", anything within the module will be available at *domain.com/dashboard/*
 
+##### New Module Controller #####
+You can create a new module controller using the --controller option, optionally you can also include --resource
+
+```bash
+    $ php artisan make:module ModuleName --controller NameOfController [--resource]
+```
+
+This will place a new controller into your ```app\Modules\ModuleName\Controllers``` folder. By default this will create a plain controller.
+If you would like to create a resource controller add --resource which will include all of the basic CRUD methods for you.
+
 #####  Module Namespacing #####
 All files related to the module must belong to the same namespace. This is done automatically for you if you use the provided console commands.
 

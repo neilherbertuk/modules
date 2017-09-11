@@ -27,7 +27,7 @@ class MakeModuleCommand extends Command
 //                    {--model : Creates a model}
                     '{--webroute : Creates a web route file}
                     {--apiroute : Creates an API route file}
-                    {--plain}';
+                    {--resource}';
 
     /**
      * The console command description.
@@ -59,7 +59,7 @@ class MakeModuleCommand extends Command
         // Has a Module Name been provided?
         if ($this->isModuleNameGiven($module)) {
 
-            $this->info('Module Name: ' . $module);
+            $this->info("Module Name: $module");
 
             // Create Module
             if ($this->option('create')) {

@@ -12,8 +12,8 @@ trait MakeController{
      */
     protected function createController($module, $filename)
     {
-        $this->info('Creating a new Controller');
-        $this->info('Creating ' . $module . ':' . $filename . ' Controller');
+        $this->info("Creating a new Controller");
+        $this->info("Creating $module:$filename Controller");
         $this->createControllersFolder($module);
         if (!file_exists(base_path() . "/app/Modules/" . $module . "/Controllers/" . $filename . ".php")) {
             file_put_contents(
@@ -23,7 +23,7 @@ trait MakeController{
             (file_exists(base_path() . "/app/Modules/" . $module . "/Controllers/" . $filename . ".php") ? $this->info('Done'):$this->error('An error occurred'));
             return;
         }
-        $this->error('Controller already exists');
+        $this->error("Controller already exists");
         return;
     }
 
@@ -42,10 +42,10 @@ trait MakeController{
      */
     protected function compileControllerStub($moduleName, $className)
     {
-        $stub = __DIR__ . '/../Stubs/controller.stub';
+        $stub = __DIR__ . '/../Stubs/controller.plain.stub';
 
-        if ($this->option('plain')) {
-            $stub = __DIR__ . '/../Stubs/controller.plain.stub';
+        if ($this->option('resource')) {
+            $stub = __DIR__ . '/../Stubs/controller.stub';
         }
 
         return str_replace(
