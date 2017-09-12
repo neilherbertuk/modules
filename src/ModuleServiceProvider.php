@@ -151,6 +151,7 @@ class ModuleServiceProvider extends ServiceProvider
 
             if ($this->app->runningInConsole()) {
                 $this->loadModuleMigrations($module);
+                $this->loadModuleCommands($module);
             }
 
         });
@@ -222,6 +223,19 @@ class ModuleServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * @param $module
+     */
+    protected function loadModuleCommands($module)
+    {
+        if (is_dir(base_path('app/Modules/' . $module . '/Console/Commands'))) {
+            $startPos = strlen(base_path('app/Modules/' . $module . '/Console/Commands/'));
+            $files = glob(base_path('app/Modules/' . $module . '/Console/Commands/*.php'));
+            foreach ($files as $file) {
+                $this->commands($this->app->getNamespace() . "Modules\\$module\Console\Commands\\" . substr($file, $startPos, -4));
+            }
+        }
+    }
 
     /**
      * @param $module

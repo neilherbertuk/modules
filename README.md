@@ -16,6 +16,7 @@ Currently supports:
  - Routes, web and api
  - Service Providers
  - Views
+ - Console Commands
 
 Currently not supported:
  - Database Seeding
