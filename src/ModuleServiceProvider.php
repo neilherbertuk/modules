@@ -196,6 +196,9 @@ class ModuleServiceProvider extends ServiceProvider
         if (is_dir(base_path('app/Modules/' . $module . '/Views'))) {
             $this->loadViewsFrom(base_path('app/Modules/' . $module . '/Views'), strtolower($module));
         }
+        if (is_dir(base_path('app/Modules/' . $module . '/Resources/Views'))) {
+            $this->loadViewsFrom(base_path('app/Modules/' . $module . '/Resources/Views'), strtolower($module));
+        }
     }
 
     /**
